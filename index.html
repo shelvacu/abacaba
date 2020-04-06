@@ -1,13 +1,15 @@
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>abacaba</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>abacaba'r</title>
   </head>
   <body>
-    <p>Instructions: Type the <a href="https://en.wikipedia.org/wiki/ABACABA_pattern">abacaba</a> sequence. Paste/backspace is not allowed.</p>
-    <input id="main" placeholder="abacabadabacabaeabacabadabacabafabacabadabacabaeabacabadabacaba" />
+    <h2>abaca.ba'r</h2>
+    <p>Instructions: Type the <a href="https://en.wikipedia.org/wiki/ABACABA_pattern">abacaba</a> sequence. Paste and backspace is not allowed. On mobile, click the textbox to pull up your keyboard.</p>
+    <input id="main" style="font-size:30px;ime-mode:disabled" placeholder="abacabadabacabaeabacabadabacabafabacabadabacabaeabacabadabacaba" />
     <p>Progress:<br />Level: <b id="level">0</b><br />Characters: <span id="characters">0</span></p>
-    <div id="fail" style="display:none;"><h1 style="color:red">FAIL</h1>Refresh to try again.</div>
+    <div id="fail" style="display:none;"><h1 style="color:red">FAIL</h1>Why: <span id="why"></span><br><button type="button" id="tryagain" style="font-size:30px">Try again?</button></div>
     <script src="main.js"></script>
   </body>
 </html>
