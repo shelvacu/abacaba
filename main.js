@@ -1,3 +1,23 @@
+// @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-v3-or-Later
+
+/*  Copyright 2020 Shelvacu
+
+    This file is part of abacaba.
+
+    abacaba is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    abacaba is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with abacaba.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 let inp = document.getElementById("main");
 let count = 0;
 let fail = false;
@@ -98,3 +118,5 @@ document.getElementById("tryagain").addEventListener("click", function(){
   inp.disabled = false;
   inp.focus();
 });
+
+// @license-end
