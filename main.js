@@ -22,6 +22,7 @@ let inp = document.getElementById("main");
 let count = 0;
 let fail = false;
 let failEl = document.getElementById("fail");
+let speeds = document.getElementById("speeds");
 const aCode = "A".charCodeAt(0);
 
 function trailingZeros(n) {
@@ -37,9 +38,25 @@ function trailingZeros(n) {
 let lvlind = document.getElementById("level");
 let chrind = document.getElementById("characters");
 
-function updateCounts(){
+function updateCounts(thisCharAt){
   chrind.textContent = count+"";
-  lvlind.textContent = Math.log2(count+1).toFixed(5);
+  let lvlFloat = Math.log2(count+1);
+  lvlind.textContent = lvlFloat.toFixed(5);
+  if( count == 1 || start == null ) return;
+  let time_ms = (thisCharAt - start);
+  let speed_c_per_ms = (count-1) / time_ms;
+  let time_s = time_ms/1000;
+  let speed_c_per_s = speed_c_per_ms * 1000;
+  let speedtext = speed_c_per_s.toFixed(3) + " characters per second (" + (count-1) + " characters* in " + time_s + " seconds)";
+  console.log(lvlFloat);
+  console.log(lvlFloat|0);
+  if( (lvlFloat|0) === lvlFloat ){
+    let el = speeds.children[speeds.children.length-1];
+    el.textContent = "Level " + lvlFloat + " speed: " + speedtext;
+    speeds.appendChild(document.createElement("div"));
+  }
+  let el = speeds.children[speeds.children.length-1];
+  el.textContent = "Current Speed: " + speedtext;
 }
 
 function doFail(why){
@@ -54,8 +71,13 @@ inp.value = "";
 inp.focus();
 
 let previousText = "";
+let start = null;
 
 inp.addEventListener("input", function(evt) {
+  if( start == null ){
+    start = Date.now();
+  }
+  let thisCharAt = Date.now();
   console.log(evt.inputType, evt.data);
   if( fail ) return;
   let dataLen = evt.data ? evt.data.length : -1;
@@ -99,7 +121,7 @@ inp.addEventListener("input", function(evt) {
   inp.selectionStart = inp.selectionEnd = -1;
   if( data.toUpperCase() === nextChar ){
     count += 1;
-    updateCounts();
+    updateCounts(thisCharAt);
   }else{
     fail = true;
     doFail("Incorrect character.");
@@ -111,10 +133,12 @@ document.getElementById("tryagain").addEventListener("click", function(){
   inp.value = "";
   previousText = "";
   count = 0;
+  start = null;
   fail = false;
   failEl.style.display = "none";
   chrind.textContent = "0";
   lvlind.textContent = "0";
+  speeds.innerHTML = "<div></div>";
   inp.disabled = false;
   inp.focus();
 });
