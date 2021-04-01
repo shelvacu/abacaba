@@ -22,13 +22,16 @@ let inp = document.getElementById("main");
 let count = 0;
 let fail = false;
 let failEl = document.getElementById("fail");
+let failBox = document.getElementById("fail-noise-enable");
+let failAudio = document.getElementById("fail-audio");
 let speeds = document.getElementById("speeds");
 let lvlind = document.getElementById("level");
 let chrind = document.getElementById("characters");
 let hs_speeds = document.getElementById("hs-speeds");
 let hs_lvlind = document.getElementById("hs-level");
 let hs_chrind = document.getElementById("hs-characters");
-let farthest = +localStorage.getItem('farthest') || 0;
+let farthest = +localStorage.getItem("farthest") || 0;
+let fail_noise_enable = localStorage.getItem("fail_noise_enable") == "true";
 let levelSpeeds = [];
 const aCode = "A".charCodeAt(0);
 
@@ -39,6 +42,13 @@ while(true) {
   levelSpeeds.push(score+0);
   currLevel++;
 }
+
+failBox.checked = fail_noise_enable;
+
+failBox.addEventListener("change", function(){
+  fail_noise_enable = failBox.checked;
+  localStorage.setItem("fail_noise_enable", fail_noise_enable ? "true" : "false");
+});
 
 function trailingZeros(n) {
   let res = 0;
@@ -103,6 +113,9 @@ function updateHs(){
 updateHs();
 
 function doFail(why){
+  if(fail_noise_enable){
+    failAudio.play();
+  }
   inp.disabled = true;
   console.log("why", why);
   document.getElementById("why").textContent = why;
