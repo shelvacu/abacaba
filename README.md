@@ -1,3 +1,3 @@
 # abacaba
 
-A simple game, available at https://abaca.bar/
+A simple game, available at https://abacaba.shelvacu.com/
