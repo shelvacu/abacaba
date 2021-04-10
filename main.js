@@ -30,6 +30,7 @@ let chrind = document.getElementById("characters");
 let hs_speeds = document.getElementById("hs-speeds");
 let hs_lvlind = document.getElementById("hs-level");
 let hs_chrind = document.getElementById("hs-characters");
+let scores_outer = document.getElementById("scores-outer");
 let farthest = +localStorage.getItem("farthest") || 0;
 let fail_noise_enable = localStorage.getItem("fail_noise_enable") == "true";
 let levelSpeeds = [];
@@ -116,8 +117,9 @@ function doFail(why){
   if(fail_noise_enable){
     failAudio.play();
   }
+  scores_outer.style.display = "block";
   inp.disabled = true;
-  console.log("why", why);
+  //console.log("why", why);
   document.getElementById("why").textContent = why;
   failEl.style.display = "";
   document.getElementById("tryagain").focus();
@@ -166,6 +168,8 @@ inp.addEventListener("input", function(evt) {
     if( shouldReturn ) return;
   }
   let data = evt.data[evt.data.length - 1];
+  data = data.toUpperCase();
+  if(data == "Z") data = "A";
   //if( evt.key.length !== 1 ) return;
   let nextCount = count + 1;
   console.log(nextCount);
@@ -175,17 +179,18 @@ inp.addEventListener("input", function(evt) {
   //inp.value += evt.data.toLowerCase();
   previousText = inp.value;
   inp.selectionStart = inp.selectionEnd = -1;
-  if( data.toUpperCase() === nextChar ){
+  if( data === nextChar ){
     count += 1;
     updateCounts(thisCharAt);
   }else{
     fail = true;
-    doFail("Incorrect character.");
+    doFail(`Incorrect character. You typed ${data.toUpperCase()}, correct character was ${nextChar}.`);
   }
   evt.preventDefault();
 });
 
 document.getElementById("tryagain").addEventListener("click", function(){
+  scores_outer.style.display = "none";
   inp.value = "";
   previousText = "";
   count = 0;
